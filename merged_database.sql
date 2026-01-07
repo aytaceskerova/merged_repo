@@ -1,12 +1,3 @@
--- ============================================
--- MERGED DATABASE SCHEMA AND QUERIES
--- Combined from task1.sql and task2.sql
--- ============================================
-
--- ============================================
--- PART 1: EMPLOYEES TABLE (from task1.sql)
--- ============================================
-
 CREATE TABLE Employees (
 EmployeeID INT PRIMARY KEY,
 Name VARCHAR(100) NOT NULL,
@@ -20,17 +11,16 @@ INSERT INTO Employees (EmployeeID, Name, Department, Salary) VALUES
 (103, 'Charlie Brown', 'Sales', 72000.00),
 (104, 'David Lee', 'Sales', 63000.00),
 (105, 'Eve Davis', 'Sales', 70000.00),
-(106, 'Frank White', 'Sales', 69000.00), -- 6th Sales employee
+(106, 'Frank White', 'Sales', 69000.00),
 (201, 'Grace Hall', 'HR', 55000.00),
 (202, 'Henry Scott', 'HR', 58000.00),
-(203, 'Ivy Adams', 'HR', 60000.00), -- 3rd HR employee
+(203, 'Ivy Adams', 'HR', 60000.00),
 (301, 'Jack King', 'Engineering', 90000.00),
 (302, 'Kelly Green', 'Engineering', 92000.00),
 (303, 'Liam Baker', 'Engineering', 88000.00),
 (304, 'Mia Carter', 'Engineering', 95000.00),
-(305, 'Noah Perez', 'Engineering', 89000.00); -- 5th Engineering employee
+(305, 'Noah Perez', 'Engineering', 89000.00);
 
--- Query: Departments with more than 5 employees
 SELECT 
     Department,
     COUNT(*) AS total_employees
@@ -38,10 +28,6 @@ FROM Employees
 GROUP BY Department
 HAVING COUNT(*) > 5
 ORDER BY total_employees DESC;
-
--- ============================================
--- PART 2: CUSTOMERS AND ORDERS TABLES (from task2.sql)
--- ============================================
 
 CREATE TABLE customers (
 customer_id INT PRIMARY KEY,
@@ -71,7 +57,6 @@ INSERT INTO orders (order_id, customer_id, order_date, total_amount) VALUES
 (6, 101, '2025-03-15', 400.00),
 (7, 103, '2025-03-20', 200.00);
 
--- Query: Customer statistics with latest order information
 WITH customer_stats AS (
     SELECT 
         c.customer_id,
@@ -104,4 +89,3 @@ SELECT
 FROM customer_stats cs
 INNER JOIN latest_orders lo ON cs.customer_id = lo.customer_id AND lo.rn = 1
 ORDER BY cs.spend_rank ASC;
-
